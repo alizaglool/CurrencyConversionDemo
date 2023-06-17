@@ -17,6 +17,8 @@
 		477244602A37AA79005E14A8 /* CurrencyConversionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4772445E2A37AA79005E14A8 /* CurrencyConversionViewController.swift */; };
 		477244612A37AA79005E14A8 /* CurrencyConversionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4772445F2A37AA79005E14A8 /* CurrencyConversionViewController.xib */; };
 		477244632A37AC6C005E14A8 /* CurrencyConversionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 477244622A37AC6C005E14A8 /* CurrencyConversionViewModel.swift */; };
+		4789F7532A3A779F00FFDDB9 /* Networking in Frameworks */ = {isa = PBXBuildFile; productRef = 4789F7522A3A779F00FFDDB9 /* Networking */; };
+		4789F7552A3A77A400FFDDB9 /* UICurrency in Frameworks */ = {isa = PBXBuildFile; productRef = 4789F7542A3A77A400FFDDB9 /* UICurrency */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +42,8 @@
 			files = (
 				477244572A37A709005E14A8 /* RxSwift in Frameworks */,
 				477244552A37A709005E14A8 /* RxCocoa in Frameworks */,
+				4789F7532A3A779F00FFDDB9 /* Networking in Frameworks */,
+				4789F7552A3A77A400FFDDB9 /* UICurrency in Frameworks */,
 				477244522A379F6A005E14A8 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -54,6 +58,7 @@
 				4772444E2A379EF4005E14A8 /* Networking */,
 				477244392A379E9D005E14A8 /* CurrencyConversion */,
 				477244382A379E9D005E14A8 /* Products */,
+				4789F7512A3A779F00FFDDB9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -128,6 +133,13 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		4789F7512A3A779F00FFDDB9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -148,6 +160,8 @@
 				477244512A379F6A005E14A8 /* Alamofire */,
 				477244542A37A709005E14A8 /* RxCocoa */,
 				477244562A37A709005E14A8 /* RxSwift */,
+				4789F7522A3A779F00FFDDB9 /* Networking */,
+				4789F7542A3A77A400FFDDB9 /* UICurrency */,
 			);
 			productName = CurrencyConversion;
 			productReference = 477244372A379E9D005E14A8 /* CurrencyConversion.app */;
@@ -456,6 +470,14 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 477244532A37A709005E14A8 /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxSwift;
+		};
+		4789F7522A3A779F00FFDDB9 /* Networking */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Networking;
+		};
+		4789F7542A3A77A400FFDDB9 /* UICurrency */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = UICurrency;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -23,8 +23,6 @@ extension UITextField {
         self.textColor = SystemDesign.AppColors.separator.color
         self.font = UIFont(name: SystemDesign.AppFonts.InterMedium.name, size: 16)
         
-        //        self.addTarget(self, action: #selector(textFieldEditingDidBegin), for: .editingDidBegin)
-        //        self.addTarget(self, action: #selector(textFieldEditingDidEnd), for: .editingDidEnd)
     }
     
     @objc private func textFieldEditingDidBegin() {
@@ -153,35 +151,6 @@ extension UITextField {
     }
 }
 
-//MARK: - set icone in right text field -
-//
-extension UITextField {
-    public func setIcon(_ image: UIImage, tintColor: UIColor = SystemDesign.AppColors.secondary.color, width: CGFloat = 10, height: CGFloat = 10) {
-        let iconView = UIImageView(frame: CGRect(x: -20, y: 0, width: width, height: height))
-        iconView.image = image
-        iconView.tintColor = tintColor
-        iconView.contentMode = .scaleAspectFill
-        let iconContainerView: UIView = UIView(frame: CGRect(x: 20, y: 0, width: width, height: height))
-        iconContainerView.addSubview(iconView)
-        rightView = iconContainerView
-        rightViewMode = .always
-        
-        // Check the app's current language direction
-        let isRTL = LocalizationManager.shared.getLanguage() == .English
-        // Adjust the icon position based on the layout direction and content width
-        let iconX: CGFloat
-        if isRTL {
-            iconX = -20
-            iconContainerView.frame.origin.x = iconX
-            iconView.frame.origin.x = iconX
-        } else {
-            iconX = 20
-            iconContainerView.frame.origin.x = iconX
-            iconView.frame.origin.x = iconX
-        }
-    }
-}
-
 //MARK: - create date picker -
 //
 extension UITextField {
@@ -201,56 +170,4 @@ extension UITextField {
     }
 }
 
-public enum IconPosition {
-    case right
-    case left
-}
 
-extension UITextField {
-    
-    public func setIconRightOrLeft(_ image: UIImage, position: IconPosition = .right, tintColor: UIColor = SystemDesign.AppColors.secondary.color, width: CGFloat = 10, height: CGFloat = 10) {
-        let iconView = UIImageView(frame: CGRect(x: 0, y: 0, width: width, height: height))
-        iconView.image = image
-        iconView.tintColor = tintColor
-        iconView.contentMode = .scaleAspectFill
-        
-        let iconContainerView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: width + 10, height: height))
-        iconContainerView.addSubview(iconView)
-        
-        if position == .right {
-            rightView = iconContainerView
-            rightViewMode = .always
-            
-            // Check the app's current language direction
-            let isRTL = LocalizationManager.shared.getLanguage() == .Arabic
-            // Adjust the icon position based on the layout direction and content width
-            let iconX: CGFloat
-            if isRTL {
-                iconX = -10
-                iconContainerView.frame.origin.x = iconX
-                iconView.frame.origin.x = 10
-            } else {
-                iconX = self.frame.size.width - width - 10
-                iconContainerView.frame.origin.x = iconX
-                iconView.frame.origin.x = 0
-            }
-        } else if position == .left {
-            leftView = iconContainerView
-            leftViewMode = .always
-            
-            // Check the app's current language direction
-            let isRTL = LocalizationManager.shared.getLanguage() == .Arabic
-            // Adjust the icon position based on the layout direction and content width
-            let iconX: CGFloat
-            if isRTL {
-                iconX = self.frame.size.width - width - 10
-                iconContainerView.frame.origin.x = iconX
-                iconView.frame.origin.x = 0
-            } else {
-                iconX = -10
-                iconContainerView.frame.origin.x = iconX
-                iconView.frame.origin.x = 10
-            }
-        }
-    }
-}

@@ -9,10 +9,8 @@ import Foundation
 
 public enum EndPoints: String {
     
-    case baseURL = "http://97.74.85.114:1337/"
-    case imagePath = "http://192.168.1.22:1337/files/driver/documents/"
-    case apiKey = "AIzaSyAAhdz6VmDo7f8PWpQa4SI70S_bACudhE0"
-    
+    case baseURL = "http://data.fixer.io/api/"
+    case apiKey = "573361bb78ff2665f4a331f4e8e0e780"
     
     public var value: String {
         return self.rawValue
