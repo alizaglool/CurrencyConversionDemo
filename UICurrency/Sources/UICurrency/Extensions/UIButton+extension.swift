@@ -10,12 +10,11 @@ import UIKit
 //MARK: - set primary button -
 //
 extension UIButton {
-    public func setPrimaryButton(background: UIColor = .orange) {
+    public func setPrimaryButton(background: UIColor = .black) {
         backgroundColor = background
         layer.cornerRadius = 8
         self.setTitleColor( UIColor.white, for: .normal)
         self.titleLabel?.textColor = UIColor.white
-        self.titleLabel?.font = UIFont(name: SystemDesign.AppFonts.InterMedium.name, size: 16)
     }
 }
 
@@ -23,11 +22,10 @@ extension UIButton {
 //
 extension UIButton {
     public func setSecondaryButton() {
-        backgroundColor = SystemDesign.AppColors.secondaryOP.color
+        backgroundColor = .white
         layer.cornerRadius = 8
         self.setTitleColor(.black, for: .normal)
         self.titleLabel?.textColor = .black
-        self.titleLabel?.font = UIFont(name: SystemDesign.AppFonts.InterMedium.name, size: 16)
     }
 }
 

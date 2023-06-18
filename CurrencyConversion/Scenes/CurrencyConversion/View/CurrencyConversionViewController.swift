@@ -47,6 +47,7 @@ class CurrencyConversionViewController: UIViewController {
         bindAmountTextFieldToViewModel()
         BindConvertedValueLabelFromViewModel()
         BindSwapButtonWasTapped()
+        bindLoadingToViewModel()
     }
 
 }
@@ -65,19 +66,14 @@ extension CurrencyConversionViewController {
 extension CurrencyConversionViewController {
     private func bindBaseCurrencyPickerView() {
         //
-        viewModel.baseCurrencies
-            .bind(to: baseCurrencyPickerView.rx.itemTitles) { (_, currency: Currency) -> String? in
-                return currency.name
+        viewModel.baseCurrenciesObservable
+            .bind(to: baseCurrencyPickerView.rx.itemTitles) { _, currencyCode in
+                return currencyCode
             }
             .disposed(by: disposeBag)
-            
-        // Bind Selected Values to view Model
-        baseCurrencyPickerView.rx.modelSelected(Currency.self)
-            .map { (currencies: [Currency]) -> CurrencyModel in
-                return CurrencyModel(success: true, symbols: currencies)
-            }
-            .bind(to: viewModel.baseCurrency)
-            .disposed(by: disposeBag)    }
+        
+        
+    }
 }
 
 // MARK: - Bind Target Currency Picker View -
@@ -85,19 +81,12 @@ extension CurrencyConversionViewController {
 extension CurrencyConversionViewController {
     private func bindTargetCurrencyPickerView() {
         //
-        viewModel.targetCurrencies
-            .bind(to: targetCurrencyPickerView.rx.itemTitles) { (_, currency: Currency) -> String? in
-                return currency.name
+        viewModel.targetCurrenciesObservable
+            .bind(to: targetCurrencyPickerView.rx.itemTitles) { _, currencyCode in
+                return currencyCode
             }
             .disposed(by: disposeBag)
         
-        // Bind Selected Values to view Model
-        targetCurrencyPickerView.rx.modelSelected(Currency.self)
-            .map { (currencies: [Currency]) -> CurrencyModel in
-                return CurrencyModel(success: true, symbols: currencies)
-            }
-            .bind(to: viewModel.targetCurrency)
-            .disposed(by: disposeBag)
     }
 }
 
@@ -106,7 +95,8 @@ extension CurrencyConversionViewController {
 extension CurrencyConversionViewController {
     private func bindAmountTextFieldToViewModel() {
         //
-//        amountTextField.setSecondaryTextField()
+        amountTextField.keyboardType = .phonePad
+        amountTextField.setSecondaryTextField()
         amountTextField.rx.text
             .orEmpty
             .bind(to: viewModel.amount)
@@ -131,9 +121,25 @@ extension CurrencyConversionViewController {
 extension CurrencyConversionViewController {
     private func BindSwapButtonWasTapped() {
         //
-//        swapButton.setPrimaryButton()
+        swapButton.setPrimaryButton()
         swapButton.rx.tap
-            .bind(to: viewModel.swap)
+            .throttle(RxTimeInterval.microseconds(1000), scheduler: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] (_) in
+                guard let self = self else { return }
+                self.viewModel.convertvalueToView()
+            })
             .disposed(by: disposeBag)
+    }
+}
+
+//MARK: - bind Loading To view Model -
+
+extension CurrencyConversionViewController {
+    private func bindLoadingToViewModel() {
+        viewModel.activityIndicatorStatus
+            .subscribe(onNext: { [weak self] (isLoading) in
+            guard let self = self else { return }
+            Indicator.createIndicator(on: self, start: isLoading)
+        }).disposed(by: disposeBag)
     }
 }

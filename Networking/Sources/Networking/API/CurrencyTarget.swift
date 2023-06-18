@@ -10,6 +10,7 @@ import Alamofire
 
 public enum CurrencyTarget {
     case getCurencyType
+    case conversionAmount(from: String, to: String, amount: String)
 }
 
 extension CurrencyTarget: TargetType {
@@ -23,6 +24,8 @@ extension CurrencyTarget: TargetType {
         switch self {
         case .getCurencyType:
             return "symbols?access_key=\(EndPoints.apiKey.value)"
+        case .conversionAmount(from: let base , to: let target, amount: let amount):
+            return "convert?access_key=\(EndPoints.apiKey.value)&from=\(base)&to=\(target)&amount=\(amount)"
         }
     }
     
@@ -30,6 +33,8 @@ extension CurrencyTarget: TargetType {
         switch self {
         case .getCurencyType:
             return .get
+        case .conversionAmount:
+            return .post
         }
     }
     

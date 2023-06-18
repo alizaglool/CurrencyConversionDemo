@@ -42,14 +42,13 @@ extension UITextField {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.heightAnchor.constraint(equalToConstant: 50).isActive = true
         self.layer.cornerRadius = 10
-        self.backgroundColor = SystemDesign.AppColors.secondaryPro.color
+        self.backgroundColor = .white
         
         self.setRightPaddingPoints()
         self.setLeftPaddingPoints()
 //                self.textFieldEditingDidBegin()
         
         self.textColor = .black
-        self.font = UIFont(name: SystemDesign.AppFonts.InterMedium.name, size: 16)
         
     }
     
