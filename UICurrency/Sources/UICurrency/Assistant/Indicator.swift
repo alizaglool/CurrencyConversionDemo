@@ -15,7 +15,7 @@ public struct Indicator {
     public static func createIndicator(on vc: UIViewController, start: Bool) {
         DispatchQueue.main.async {
             indicator.center = vc.view.center
-            indicator.color = SystemDesign.AppColors.secondary.color
+            indicator.color = .gray
             vc.view.addSubview(indicator)
             if start {
                 indicator.startAnimating()

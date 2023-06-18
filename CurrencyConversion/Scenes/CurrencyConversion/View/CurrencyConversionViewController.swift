@@ -72,7 +72,19 @@ extension CurrencyConversionViewController {
             }
             .disposed(by: disposeBag)
         
-        
+        baseCurrencyPickerView.rx.itemSelected
+            .subscribe(onNext: { [weak self] (row, _) in
+                guard let self = self else { return }
+                self.viewModel.baseCurrenciesObservable
+                    .filter { !$0.isEmpty }
+                    .subscribe(onNext: { [weak self] baseCurrencies in
+                        guard let self = self else { return }
+                        let baseCurrency = baseCurrencies[row]
+                        self.viewModel.baseCurrency.accept(baseCurrency)
+                    })
+                    .disposed(by: self.disposeBag)
+            })
+            .disposed(by: disposeBag)
     }
 }
 
@@ -85,6 +97,20 @@ extension CurrencyConversionViewController {
             .bind(to: targetCurrencyPickerView.rx.itemTitles) { _, currencyCode in
                 return currencyCode
             }
+            .disposed(by: disposeBag)
+        
+        targetCurrencyPickerView.rx.itemSelected
+            .subscribe(onNext: { [weak self] (row, _) in
+                guard let self = self else { return }
+                self.viewModel.targetCurrenciesObservable
+                    .element(at: row)
+                    .subscribe(onNext: { [weak self] targetCurrencies in
+                        guard let self = self else { return }
+                        let targetCurrency = targetCurrencies[row]
+                        self.viewModel.targetCurrency.accept(targetCurrency)
+                    })
+                    .disposed(by: self.disposeBag)
+            })
             .disposed(by: disposeBag)
         
     }
@@ -141,5 +167,27 @@ extension CurrencyConversionViewController {
             guard let self = self else { return }
             Indicator.createIndicator(on: self, start: isLoading)
         }).disposed(by: disposeBag)
+    }
+}
+
+extension CurrencyConversionViewController: UIPickerViewDelegate {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if pickerView == baseCurrencyPickerView {
+            viewModel.baseCurrenciesObservable
+                .subscribe(onNext: { [weak self] baseCurrencies in
+                    guard let self = self else { return }
+                    let baseCurrency = baseCurrencies[row]
+                    self.viewModel.baseCurrency.accept(baseCurrency)
+                })
+                .disposed(by: disposeBag)
+        } else if pickerView == targetCurrencyPickerView {
+            viewModel.targetCurrenciesObservable
+                .subscribe(onNext: { [weak self] targetCurrencies in
+                    guard let self = self else { return }
+                    let targetCurrency = targetCurrencies[row]
+                    self.viewModel.targetCurrency.accept(targetCurrency)
+                })
+                .disposed(by: disposeBag)
+        }
     }
 }

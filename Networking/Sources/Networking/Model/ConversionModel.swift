@@ -13,8 +13,6 @@ public struct ConversionModel: Codable {
     public let success: Bool
     public let query: Query
     public let info: Info
-    public let historical: String?
-    public let date: String
     public let result: Double
 }
 

@@ -18,15 +18,4 @@ extension UIButton {
     }
 }
 
-//MARK: - set secondary button -
-//
-extension UIButton {
-    public func setSecondaryButton() {
-        backgroundColor = .white
-        layer.cornerRadius = 8
-        self.setTitleColor(.black, for: .normal)
-        self.titleLabel?.textColor = .black
-    }
-}
-
 

@@ -46,7 +46,6 @@ class CurrencyConversionViewModel: CurrencyConversionViewModelType {
     }
     
     init() {
-        
         fetchCurrencyData()
     }
     
